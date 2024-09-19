@@ -9,10 +9,14 @@ export class UsersService {
 
     public create(newUser: UserDto) {
         newUser.id = uuid();
-        newUser.passwoard = bcryptHashSync(newUser.passwoard, 10);
+        newUser.password = bcryptHashSync(newUser.password, 10);
         this.users.push(newUser);
         console.log(this.users);
 
+    };
+
+    public findByUserName(username: string): UserDto | null {
+        return this.users.find(user => user.userName === username)
     };
 
 }

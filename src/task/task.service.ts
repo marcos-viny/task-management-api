@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
-import { FindAllParameters, TaskDto } from './task.dto';
+import { FindAllParameters, TaskDto, TaskStatusEnum } from './task.dto';
 import { NotFoundError, throwError } from 'rxjs';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class TaskService {
@@ -8,8 +9,9 @@ export class TaskService {
     private tasks: TaskDto[] = [];
 
     public create(task: TaskDto) {
+        task.id = uuid();
+        task.status = TaskStatusEnum.TO_DO;
         this.tasks.push(task);
-        console.log(this.tasks);
     };
 
     public findById(id: string): TaskDto {

@@ -8,11 +8,11 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post('/login')
-    public signIn(
+    public async signIn(
         @Body('username') username: string,
         @Body('password') password: string
-    ): AuthResponseDto {
-        return this.authService.signIn(username, password)
+    ): Promise<AuthResponseDto> {
+        return await this.authService.signIn(username, password)
     }
 
 }
